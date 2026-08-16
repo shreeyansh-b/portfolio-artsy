@@ -10,14 +10,14 @@ Build a personal, creative space rather than a hiring-focused portfolio. It will
 - An artsy indie / psychedelic feel: hazy, analog, and editorial rather than literal beach or travel-postcard imagery.
 - Core palette: cream, midnight purple, magenta, burnt orange, and warm accents.
 - Square edges and crisp borders, softened by restrained grain, light leaks, and occasional abstract gradients.
-- Subtly retro display typography paired with a clean reading typeface.
+- Fraunces for the subtly retro display typography, paired with DM Sans for navigation, captions, and reading text.
 - Gentle, playful motion only. It must respect `prefers-reduced-motion` and preserve readable contrast.
 
 ## Information architecture
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Intro-led collage plus selected Archive, Notes, and Work pieces. |
+| `/` | A restrained atmospheric intro beside a collage: one dominant visual plus selected Archive, Notes, and Work pieces. |
 | `/archive` | A thematic, privacy-safe photo archive. |
 | `/notes` | Editorial index of Markdown notes, with featured and smaller entries. |
 | `/notes/$slug` | SEO-ready, statically prerendered Markdown note. |
@@ -28,17 +28,17 @@ Build a personal, creative space rather than a hiring-focused portfolio. It will
 ## Content strategy
 
 - Start with three work projects, three archive themes containing about twelve images total, and four notes.
-- Use realistic sample copy in local Markdown/data files, deliberately isolated from layout code.
+- Use realistic sample copy in local content files, deliberately isolated from layout code: typed TypeScript data for Archive and Work, Markdown for Notes.
 - Archive groups use evocative, non-identifying names such as *Soft Focus*, *In Between*, and *After the Sun*; no precise locations, dates, or metadata are published by default.
 - Project listing covers use abstract gradient art. Existing project screenshots can be added later inside the story pages.
 - Featured notes may have optional artwork; small notes remain text-forward with dates and tags.
-- About remains concise. Social links replace a contact form. The footer includes a small changing line.
+- About remains concise. Social links replace a contact form; GitHub is included initially, while other links are added only when verified or supplied. The footer includes a small changing line.
 
 ## Interaction and responsive behavior
 
 - Desktop Archive uses deliberately placed collage clusters; mobile falls back to a clean grid.
 - Desktop navigation remains minimal; mobile uses an expressive full-screen menu.
-- The photo-detail interaction remains intentionally undecided until the archive layout is reviewed (lightbox versus inline expansion).
+- Archive photographs open in a minimal full-screen lightbox with privacy-safe captions.
 
 ## Technical foundation
 

@@ -36,6 +36,9 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^6.0.4
         version: 6.0.5(vite@8.2.1(@types/node@24.13.3)(jiti@2.7.0))
+      husky:
+        specifier: ^9.1.7
+        version: 9.1.7
       oxlint:
         specifier: ^1.75.0
         version: 1.78.0
@@ -723,6 +726,11 @@ packages:
     peerDependenciesMeta:
       crossws:
         optional: true
+
+  husky@9.1.7:
+    resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   isbot@5.2.1:
     resolution: {integrity: sha512-dJ+LpKyClQZ7NG+j3OensC/mAZkGpukE9YUrgPYvAZj2doVL0edfDgywTUh5CXa0o+nW9a1V9e5+CJTX8+SxRw==}
@@ -1746,6 +1754,8 @@ snapshots:
     dependencies:
       rou3: 0.8.1
       srvx: 0.11.22
+
+  husky@9.1.7: {}
 
   isbot@5.2.1: {}
 

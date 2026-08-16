@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react'
 import { HeadContent, Outlet, Scripts, createRootRoute } from '@tanstack/react-router'
 
+import { SiteFooter } from '../components/site-footer'
+import { SiteHeader } from '../components/site-header'
 import '../styles.css'
 
 export const Route = createRootRoute({
@@ -12,7 +14,7 @@ export const Route = createRootRoute({
         name: 'description',
         content: 'A personal archive of creative work, photographs, and notes.',
       },
-      { title: 'Personal Archive' },
+      { title: 'Shreeyansh Bhardwaj — Personal Archive' },
     ],
   }),
   component: RootComponent,
@@ -32,7 +34,14 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       <head>
         <HeadContent />
       </head>
-      <body>{children}<Scripts /></body>
+      <body>
+        <div className="site-grain min-h-screen">
+          <SiteHeader />
+          {children}
+          <SiteFooter />
+        </div>
+        <Scripts />
+      </body>
     </html>
   )
 }
