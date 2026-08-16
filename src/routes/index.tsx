@@ -66,7 +66,7 @@ function Home() {
         <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-12">
           <p className="eyebrow text-cream/60 md:col-span-3">A note from here</p>
           <p className="font-display text-4xl leading-[0.95] italic md:col-span-7 md:text-6xl">Not a résumé. More like a place to leave the door open.</p>
-          <AnimatedLink className="round-link-inverse h-fit border-cream/70 text-cream md:col-span-2" href="/about">About me ↗</AnimatedLink>
+          <AnimatedLink className="round-link-inverse h-fit border-cream/70 md:col-span-2" href="/about">About me ↗</AnimatedLink>
         </div>
       </section>
     </main>

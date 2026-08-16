@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
-import { HeadContent, Outlet, Scripts, createRootRoute } from '@tanstack/react-router'
+import { HeadContent, Outlet, Scripts, createRootRoute, useLocation } from '@tanstack/react-router'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 
 import { SiteFooter } from '../components/site-footer'
 import { SiteHeader } from '../components/site-header'
@@ -21,9 +22,22 @@ export const Route = createRootRoute({
 })
 
 function RootComponent() {
+  const pathname = useLocation({ select: (location) => location.pathname })
+  const prefersReducedMotion = useReducedMotion()
+
   return (
     <RootDocument>
-      <Outlet />
+      <AnimatePresence initial={false} mode="wait">
+        <motion.main
+          key={pathname}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          exit={prefersReducedMotion ? undefined : { opacity: 0, y: -8, filter: 'blur(3px)' }}
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 12, filter: 'blur(4px)' }}
+          transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <Outlet />
+        </motion.main>
+      </AnimatePresence>
     </RootDocument>
   )
 }
