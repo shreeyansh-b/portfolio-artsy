@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #f8f0df;
+  --color-ink: #221331;
+  --color-plum: #3e275f;
+  --color-magenta: #c13a83;
+  --color-orange: #d36b36;
+  --font-display: Georgia, "Times New Roman", serif;
+}
+
+@layer base {
+  body {
+    margin: 0;
+    min-width: 320px;
+    background: var(--color-cream);
+    color: var(--color-ink);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
