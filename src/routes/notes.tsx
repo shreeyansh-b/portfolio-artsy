@@ -1,9 +1,15 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Outlet, createFileRoute } from '@tanstack/react-router'
 
-import { ComingSoon } from '../components/coming-soon'
+export const Route = createFileRoute('/notes')({
+  head: () => ({
+    meta: [
+      { title: 'Notes — Shreeyansh Bhardwaj' },
+      { name: 'description', content: 'Small notes, fragments, and things worth holding onto.' },
+    ],
+  }),
+  component: NotesLayout,
+})
 
-export const Route = createFileRoute('/notes')({ component: Notes })
-
-function Notes() {
-  return <ComingSoon eyebrow="02 / Notes" title="For later, or right now.">Notes will be sourced from local Markdown, statically prerendered, and designed for slow reading.</ComingSoon>
+function NotesLayout() {
+  return <Outlet />
 }

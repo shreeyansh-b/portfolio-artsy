@@ -1,11 +1,13 @@
 import { archiveFrames, archiveThemes } from './archive'
+import { notes } from './notes'
 import { workProjects } from './work'
 
 const featuredArchiveTheme = archiveThemes.find((theme) => theme.id === 'in-between')
 const featuredWork = workProjects.find((project) => project.slug === 'meme-generator')
+const featuredNote = notes.find((note) => note.featured)
 
-if (!featuredArchiveTheme || !featuredWork) {
-  throw new Error('Home featured content points to missing Archive or Work content.')
+if (!featuredArchiveTheme || !featuredWork || !featuredNote) {
+  throw new Error('Home featured content points to missing Archive, Note, or Work content.')
 }
 
 export const homeFeaturedItems = [
@@ -18,9 +20,9 @@ export const homeFeaturedItems = [
   },
   {
     variant: 'note',
-    href: '/notes',
-    eyebrow: 'Note / coming soon',
-    title: 'The weather was on our side.',
+    href: `/notes/${featuredNote.slug}`,
+    eyebrow: `Note / ${featuredNote.date}`,
+    title: featuredNote.title,
     action: 'Read the note ↗',
   },
   {

@@ -14,6 +14,8 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as ArchiveRouteImport } from './routes/archive'
 import { Route as NotesRouteImport } from './routes/notes'
 import { Route as WorkRouteImport } from './routes/work'
+import { Route as NotesIndexRouteImport } from './routes/notes/index'
+import { Route as NotesSlugRouteImport } from './routes/notes/$slug'
 import { Route as WorkIndexRouteImport } from './routes/work/index'
 import { Route as WorkSlugRouteImport } from './routes/work/$slug'
 
@@ -42,6 +44,16 @@ const WorkRoute = WorkRouteImport.update({
   path: '/work',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NotesIndexRoute = NotesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => NotesRoute,
+} as any)
+const NotesSlugRoute = NotesSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => NotesRoute,
+} as any)
 const WorkIndexRoute = WorkIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -57,17 +69,20 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/archive': typeof ArchiveRoute
-  '/notes': typeof NotesRoute
+  '/notes': typeof NotesRouteWithChildren
   '/work': typeof WorkRouteWithChildren
+  '/notes/$slug': typeof NotesSlugRoute
   '/work/$slug': typeof WorkSlugRoute
+  '/notes/': typeof NotesIndexRoute
   '/work/': typeof WorkIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/archive': typeof ArchiveRoute
-  '/notes': typeof NotesRoute
+  '/notes/$slug': typeof NotesSlugRoute
   '/work/$slug': typeof WorkSlugRoute
+  '/notes': typeof NotesIndexRoute
   '/work': typeof WorkIndexRoute
 }
 export interface FileRoutesById {
@@ -75,17 +90,34 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/archive': typeof ArchiveRoute
-  '/notes': typeof NotesRoute
+  '/notes': typeof NotesRouteWithChildren
   '/work': typeof WorkRouteWithChildren
+  '/notes/$slug': typeof NotesSlugRoute
   '/work/$slug': typeof WorkSlugRoute
+  '/notes/': typeof NotesIndexRoute
   '/work/': typeof WorkIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/about' | '/archive' | '/notes' | '/work' | '/work/$slug' | '/work/'
+    | '/'
+    | '/about'
+    | '/archive'
+    | '/notes'
+    | '/work'
+    | '/notes/$slug'
+    | '/work/$slug'
+    | '/notes/'
+    | '/work/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/archive' | '/notes' | '/work/$slug' | '/work'
+  to:
+    | '/'
+    | '/about'
+    | '/archive'
+    | '/notes/$slug'
+    | '/work/$slug'
+    | '/notes'
+    | '/work'
   id:
     | '__root__'
     | '/'
@@ -93,7 +125,9 @@ export interface FileRouteTypes {
     | '/archive'
     | '/notes'
     | '/work'
+    | '/notes/$slug'
     | '/work/$slug'
+    | '/notes/'
     | '/work/'
   fileRoutesById: FileRoutesById
 }
@@ -101,7 +135,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ArchiveRoute: typeof ArchiveRoute
-  NotesRoute: typeof NotesRoute
+  NotesRoute: typeof NotesRouteWithChildren
   WorkRoute: typeof WorkRouteWithChildren
 }
 
@@ -142,6 +176,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/notes/': {
+      id: '/notes/'
+      path: '/'
+      fullPath: '/notes/'
+      preLoaderRoute: typeof NotesIndexRouteImport
+      parentRoute: typeof NotesRoute
+    }
+    '/notes/$slug': {
+      id: '/notes/$slug'
+      path: '/$slug'
+      fullPath: '/notes/$slug'
+      preLoaderRoute: typeof NotesSlugRouteImport
+      parentRoute: typeof NotesRoute
+    }
     '/work/': {
       id: '/work/'
       path: '/'
@@ -159,6 +207,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface NotesRouteChildren {
+  NotesSlugRoute: typeof NotesSlugRoute
+  NotesIndexRoute: typeof NotesIndexRoute
+}
+
+const NotesRouteChildren: NotesRouteChildren = {
+  NotesSlugRoute: NotesSlugRoute,
+  NotesIndexRoute: NotesIndexRoute,
+}
+
+const NotesRouteWithChildren = NotesRoute._addFileChildren(NotesRouteChildren)
+
 interface WorkRouteChildren {
   WorkSlugRoute: typeof WorkSlugRoute
   WorkIndexRoute: typeof WorkIndexRoute
@@ -175,7 +235,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ArchiveRoute: ArchiveRoute,
-  NotesRoute: NotesRoute,
+  NotesRoute: NotesRouteWithChildren,
   WorkRoute: WorkRouteWithChildren,
 }
 export const routeTree = rootRouteImport
