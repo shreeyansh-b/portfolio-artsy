@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import { AnimatedLink } from '../components/animated-link'
+import { homeFeaturedItems } from '../content/home'
 
 export const Route = createFileRoute('/')({
   head: () => ({
@@ -18,10 +19,10 @@ export const Route = createFileRoute('/')({
 function Home() {
   return (
     <main>
-      <section className="page-frame grid gap-8 py-12 md:grid-cols-12 md:py-20">
-        <div className="md:col-span-5 md:pt-8">
+      <section className="page-frame grid gap-8 py-8 md:grid-cols-12 md:py-12">
+        <div className="md:col-span-5">
           <p className="eyebrow">Personal archive / 2026</p>
-          <h1 className="mt-6 max-w-xl font-display text-[clamp(4rem,8vw,8.5rem)] leading-[0.78] italic tracking-[-0.06em] text-plum">
+          <h1 className="mt-6 max-w-xl font-display text-[clamp(3.75rem,6vw,6rem)] leading-[0.82] italic tracking-[-0.05em] text-plum">
             things made<br />&amp; noticed.
           </h1>
           <p className="mt-8 max-w-sm text-lg leading-relaxed text-ink/75">
@@ -56,9 +57,13 @@ function Home() {
         </div>
 
         <div className="mt-8 grid gap-5 md:grid-cols-3">
-          <a className="feature-card feature-archive" href="/archive"><span className="eyebrow">Archive / 12 frames</span><strong>In between</strong><span>View the archive ↗</span></a>
-          <a className="feature-card feature-note" href="/notes"><span className="eyebrow">Note / 04.08.26</span><strong>The weather was on our side.</strong><span>Read the note ↗</span></a>
-          <a className="feature-card feature-work" href="/work"><span className="eyebrow">Work / 01</span><strong>Meme generator, remixed.</strong><span>See the project ↗</span></a>
+          {homeFeaturedItems.map((item) => (
+            <a className={`feature-card feature-${item.variant}`} href={item.href} key={item.href}>
+              <span className="eyebrow">{item.eyebrow}</span>
+              <strong>{item.title}</strong>
+              <span>{item.action}</span>
+            </a>
+          ))}
         </div>
       </section>
 

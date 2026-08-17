@@ -20,10 +20,10 @@ function Archive() {
 
   return (
     <main>
-      <section className="page-frame grid gap-8 py-16 md:grid-cols-12 md:py-24">
+      <section className="page-frame grid gap-8 py-10 md:grid-cols-12 md:py-14">
         <div className="md:col-span-4">
           <p className="eyebrow">01 / Archive</p>
-          <h1 className="mt-5 font-display text-7xl leading-[0.78] italic tracking-[-0.06em] text-plum md:text-8xl">Keep what<br />felt like<br />something.</h1>
+          <h1 className="mt-5 font-display text-[clamp(3.75rem,6vw,6rem)] leading-[0.82] italic tracking-[-0.05em] text-plum">Keep what<br />felt like<br />something.</h1>
         </div>
         <div className="flex max-w-md flex-col justify-end md:col-span-5 md:col-start-7">
           <p className="text-lg leading-relaxed text-ink/75">A privacy-conscious collection of frames, arranged by feeling instead of place or date.</p>
