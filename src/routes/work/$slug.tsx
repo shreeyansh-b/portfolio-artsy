@@ -1,5 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 
+import { formatNoteDate, notes } from '../../content/notes'
 import { getWorkProject } from '../../content/work'
 
 export const Route = createFileRoute('/work/$slug')({
@@ -19,6 +20,7 @@ export const Route = createFileRoute('/work/$slug')({
 function WorkStory() {
   const { slug } = Route.useParams()
   const project = getWorkProject(slug)
+  const relatedNotes = notes.filter((note) => note.workSlug === slug)
 
   if (!project) {
     return (
@@ -46,6 +48,7 @@ function WorkStory() {
           <span>Role / {project.role}</span>
           <span>Tools / {project.tools.join(' · ')}</span>
           <a className="transition-colors hover:text-[#f7d77b]" href={project.repository} rel="noreferrer" target="_blank">Repository ↗</a>
+          {relatedNotes[0] ? <Link className="transition-colors hover:text-[#f7d77b]" params={{ slug: relatedNotes[0].slug }} resetScroll={true} to="/notes/$slug">Project note ↗</Link> : null}
         </div>
       </section>
 
@@ -65,6 +68,25 @@ function WorkStory() {
         </div>
       </section>
 
+      {relatedNotes.length > 0 ? (
+        <section className="border-y border-ink/20 bg-[#e7d9ee]/45 py-12 md:py-16">
+          <div className="page-frame">
+            <p className="eyebrow">Notes from this work</p>
+            <div className="mt-6 divide-y divide-ink/20 border-y border-ink/20">
+              {relatedNotes.map((note) => (
+                <Link className="group grid gap-4 py-5 md:grid-cols-12 md:items-center" key={note.slug} params={{ slug: note.slug }} resetScroll={true} to="/notes/$slug">
+                  <div className="md:col-span-7">
+                    <p className="eyebrow">{formatNoteDate(note.date)}</p>
+                    <h2 className="mt-2 font-display text-3xl italic text-plum md:text-4xl">{note.title}</h2>
+                  </div>
+                  <span className="w-fit border-b border-transparent pb-1 text-xs font-semibold uppercase tracking-[0.16em] transition-[border-color,transform] duration-300 group-hover:translate-x-1 group-hover:border-magenta md:col-span-2 md:col-start-11 md:justify-self-end">Read note ↗</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       {project.media.filter((block) => block.layout === 'pair').map((block) => (
         <section className="border-y border-ink/20 bg-[#e7d9ee]/45 py-12 md:py-20" key={block.items.map((item) => item.src).join('-')}>
           <div className="page-frame grid gap-5 md:grid-cols-2">
@@ -78,7 +100,7 @@ function WorkStory() {
       ))}
 
       <section className="page-frame flex justify-end py-16 md:py-24">
-        <a className="round-link" href="/work">More things in the works ↗</a>
+        <Link className="round-link" resetScroll={true} to="/work">More things in the works ↗</Link>
       </section>
     </main>
   )

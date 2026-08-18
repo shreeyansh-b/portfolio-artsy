@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 
 import { IndexedListRow, IndexedListRowAction } from '../../components/indexed-list-row'
 import { formatNoteDate, notes } from '../../content/notes'
@@ -21,7 +21,7 @@ function NotesIndex() {
 
       {featuredNote ? (
         <section className="border-y border-ink/20 bg-plum px-5 py-12 text-cream md:px-8 md:py-16">
-          <a className="mx-auto block max-w-7xl" href={`/notes/${featuredNote.slug}`}>
+          <Link className="mx-auto block max-w-7xl" params={{ slug: featuredNote.slug }} resetScroll={true} to="/notes/$slug">
             <p className="eyebrow text-cream/60">Featured note / {formatNoteDate(featuredNote.date)}</p>
             <div className="mt-8 grid gap-8 md:grid-cols-12 md:items-end">
               <h2 className="font-display text-5xl leading-[0.86] italic tracking-tight md:col-span-7 md:text-7xl">{featuredNote.title}</h2>
@@ -30,7 +30,7 @@ function NotesIndex() {
                 <span className="mt-6 inline-block border-b border-cream/50 pb-1 text-xs font-semibold uppercase tracking-[0.16em]">Read slowly ↗</span>
               </div>
             </div>
-          </a>
+          </Link>
         </section>
       ) : null}
 
@@ -41,9 +41,9 @@ function NotesIndex() {
         <div className="mt-7 border-y border-ink/20">
           {smallerNotes.map((note, index) => (
             <IndexedListRow href={`/notes/${note.slug}`} index={index} key={note.slug}>
-              <div className="relative z-10 md:col-span-5">
+              <div className="relative z-10 min-w-0 md:col-span-5">
                 <p className="eyebrow">{note.tags.join(' / ')}</p>
-                <h2 className="font-display text-4xl leading-[0.9] italic tracking-tight md:whitespace-nowrap md:text-5xl">{note.title}</h2>
+                <h2 className="font-display text-4xl leading-[0.9] italic tracking-tight md:text-5xl">{note.title}</h2>
               </div>
               <span className="relative z-10 text-xs font-medium uppercase tracking-[0.16em] text-ink/60 md:col-span-4">{formatNoteDate(note.date)}</span>
               <IndexedListRowAction>Open ↗</IndexedListRowAction>

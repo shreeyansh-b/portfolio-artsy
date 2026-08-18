@@ -1,7 +1,8 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import ReactMarkdown from 'react-markdown'
 
 import { formatNoteDate, getNote } from '../../content/notes'
+import { getWorkProject } from '../../content/work'
 
 export const Route = createFileRoute('/notes/$slug')({
   head: ({ params }) => {
@@ -20,6 +21,7 @@ export const Route = createFileRoute('/notes/$slug')({
 function NoteStory() {
   const { slug } = Route.useParams()
   const note = getNote(slug)
+  const relatedWork = note?.workSlug ? getWorkProject(note.workSlug) : undefined
 
   if (!note) {
     return (
@@ -39,13 +41,14 @@ function NoteStory() {
           <div className="mt-8 flex flex-wrap gap-2">
             {note.tags.map((tag) => <span className="border border-ink/25 px-2 py-1 text-[10px] font-medium uppercase tracking-[0.14em]" key={tag}>{tag}</span>)}
           </div>
+          {relatedWork ? <Link className="mt-7 inline-block border-b border-magenta pb-1 text-xs font-semibold uppercase tracking-[0.16em] text-plum transition-transform hover:translate-x-1" params={{ slug: relatedWork.slug }} resetScroll={true} to="/work/$slug">From work / {relatedWork.title} ↗</Link> : null}
           <div className="note-content mt-12">
             <ReactMarkdown>{note.body}</ReactMarkdown>
           </div>
         </div>
       </article>
       <div className="border-t border-ink/20 px-5 py-8 md:px-8">
-        <a className="eyebrow mx-auto block max-w-3xl transition-colors hover:text-magenta" href="/notes">← All notes</a>
+        <Link className="eyebrow mx-auto block max-w-3xl transition-colors hover:text-magenta" resetScroll={true} to="/notes">← All notes</Link>
       </div>
     </main>
   )

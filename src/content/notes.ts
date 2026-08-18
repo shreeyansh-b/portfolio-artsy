@@ -4,6 +4,7 @@ export type Note = {
   date: string
   tags: readonly string[]
   featured: boolean
+  workSlug?: string
   body: string
 }
 
@@ -41,6 +42,7 @@ function parseNote(source: string, path: string): Note {
     date: fields.date,
     tags: fields.tags?.split(',').map((tag) => tag.trim()).filter(Boolean) ?? [],
     featured: fields.featured === 'true',
+    workSlug: fields.work || undefined,
     body: match[2].trim(),
   }
 }

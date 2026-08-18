@@ -13,21 +13,20 @@ if (!featuredArchiveTheme || !featuredWork || !featuredNote) {
 export const homeFeaturedItems = [
   {
     variant: 'archive',
-    href: '/archive',
     eyebrow: `Archive / ${archiveFrames.length} frames`,
     title: featuredArchiveTheme.title,
     action: 'View the archive ↗',
   },
   {
     variant: 'note',
-    href: `/notes/${featuredNote.slug}`,
+    slug: featuredNote.slug,
     eyebrow: `Note / ${featuredNote.date}`,
     title: featuredNote.title,
     action: 'Read the note ↗',
   },
   {
     variant: 'work',
-    href: `/work/${featuredWork.slug}`,
+    slug: featuredWork.slug,
     eyebrow: `Work / ${featuredWork.year}`,
     title: featuredWork.title,
     action: 'See the project ↗',

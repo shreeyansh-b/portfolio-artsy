@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from '@tanstack/react-router'
 
 import { AnimatedLink } from './animated-link'
 
@@ -7,7 +8,7 @@ const navigation = [
   { href: '/notes', label: 'Notes' },
   { href: '/work', label: 'Work' },
   { href: '/about', label: 'About' },
-]
+] as const
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -19,15 +20,15 @@ export function SiteHeader() {
   return (
     <header className="relative z-30 border-b border-ink/20 bg-cream/90 px-5 py-4 backdrop-blur md:px-8">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6">
-        <a className="group inline-flex items-baseline" href="/" onClick={closeMenu}>
+        <Link className="group inline-flex items-baseline" onClick={closeMenu} resetScroll={true} to="/">
           <span className="font-display text-2xl italic tracking-tight">shreeyansh</span>
-        </a>
+        </Link>
 
         <nav aria-label="Primary navigation" className="hidden items-center gap-6 md:flex">
           {navigation.map((item) => (
-            <a className="nav-link" href={item.href} key={item.href}>
+            <Link className="nav-link" key={item.href} resetScroll={true} to={item.href}>
               {item.label}
-            </a>
+            </Link>
           ))}
           <AnimatedLink href="https://github.com/shreeyansh-b" rel="noreferrer" target="_blank">
             GitHub <span aria-hidden="true">↗</span>
@@ -55,15 +56,16 @@ export function SiteHeader() {
           <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-cream/55">Look around</p>
           <div className="mt-8 flex flex-col border-t border-cream/25">
             {navigation.map((item, index) => (
-              <a
+              <Link
                 className="flex items-center justify-between border-b border-cream/25 py-5 font-display text-5xl italic"
-                href={item.href}
                 key={item.href}
                 onClick={closeMenu}
+                resetScroll={true}
+                to={item.href}
               >
                 {item.label}
                 <span className="font-sans text-base not-italic">0{index + 1}</span>
-              </a>
+              </Link>
             ))}
           </div>
           <a

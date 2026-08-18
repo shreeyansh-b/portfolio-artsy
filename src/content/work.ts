@@ -29,6 +29,32 @@ export type WorkProject = {
 
 export const workProjects: readonly WorkProject[] = [
   {
+    slug: 'loggo',
+    title: 'Loggo',
+    year: '2025',
+    format: 'CLI tool',
+    summary: 'A local Go CLI for ingesting structured logs, then finding the useful parts without standing up an observability stack.',
+    storyLead: 'Keeping logs searchable should not require a whole service.',
+    story: 'Loggo streams log files into a local Badger database, keys them by timestamp and service, and maintains a level index for faster filtering. Queries stay close to the terminal: service, level, time range, fields, limits, and optional colour—enough structure to find a signal without leaving the command line.',
+    role: 'Backend tooling',
+    tools: ['Go', 'Cobra', 'Badger'],
+    repository: 'https://github.com/shreeyansh-b/go-log-aggregator',
+    media: [],
+  },
+  {
+    slug: 'a-room-full-of-lights',
+    title: 'A room full of lights',
+    year: '2024',
+    format: 'Graphics study',
+    summary: 'Interactive OpenGL scene exploring materials, camera movement, and how different lights change a space.',
+    storyLead: 'Learning what makes a few cubes feel like they exist in a room.',
+    story: 'Built from lower-level graphics pieces: vertex data, shaders, textured materials, a first-person camera, directional light, and four attenuated point lights. Less finished product, more learning to make light, depth, and movement feel convincing.',
+    role: 'Graphics programming',
+    tools: ['C++', 'OpenGL', 'GLSL', 'GLFW', 'GLM', 'GLAD'],
+    repository: 'https://github.com/shreeyansh-b/open-gl-prac',
+    media: [],
+  },
+  {
     slug: 'meme-generator',
     title: 'Meme generator',
     year: '2024',

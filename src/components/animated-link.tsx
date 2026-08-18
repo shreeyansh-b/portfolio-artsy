@@ -1,4 +1,5 @@
 import { useState, type AnchorHTMLAttributes, type ReactNode } from 'react'
+import { Link } from '@tanstack/react-router'
 
 type FillState = 'idle' | 'entered' | 'leaving'
 
@@ -38,5 +39,35 @@ export function AnimatedLink({ children, className = '', onBlur, onFocus, onMous
     >
       <span className="button-label">{children}</span>
     </a>
+  )
+}
+
+type AnimatedRouteLinkProps = {
+  children: ReactNode
+  className?: string
+  to: '/about'
+}
+
+export function AnimatedRouteLink({ children, className = '', to }: Readonly<AnimatedRouteLinkProps>) {
+  const [fillState, setFillState] = useState<FillState>('idle')
+
+  return (
+    <Link
+      className={`round-link ${className}`}
+      data-fill-state={fillState}
+      onBlur={() => setFillState('leaving')}
+      onFocus={() => setFillState('entered')}
+      onMouseEnter={() => setFillState('entered')}
+      onMouseLeave={() => setFillState('leaving')}
+      onTransitionEnd={(event) => {
+        if (fillState === 'leaving' && event.propertyName === 'transform' && event.target === event.currentTarget) {
+          setFillState('idle')
+        }
+      }}
+      resetScroll={true}
+      to={to}
+    >
+      <span className="button-label">{children}</span>
+    </Link>
   )
 }
