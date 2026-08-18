@@ -31,16 +31,16 @@ function Home() {
           <AnimatedLink className="mt-8" href="#featured">Start looking <span aria-hidden="true">↓</span></AnimatedLink>
         </div>
 
-        <div className="relative grid min-h-[540px] grid-cols-6 grid-rows-6 gap-3 md:col-span-7 md:min-h-[650px]">
-          <Link className="art-card art-card-main col-span-5 row-span-5" resetScroll={true} to="/archive">
+        <div className="relative grid min-h-[440px] grid-cols-6 grid-rows-6 gap-3 md:col-span-7 md:min-h-[520px]">
+          <Link className="art-card art-card-main col-span-5 row-span-5 row-start-1" resetScroll={true} to="/archive">
             <span className="art-label">01 / Soft focus</span>
             <span className="art-caption">the light stayed for a little longer</span>
           </Link>
-          <Link className="art-card art-card-note col-start-5 col-end-7 row-start-5 row-end-7 -ml-5 -mt-1" resetScroll={true} to="/notes">
+          <Link className="art-card art-card-note col-start-5 col-end-7 row-start-4 row-end-7 -ml-5 -mt-1" resetScroll={true} to="/notes">
             <span className="art-label">02 / Note</span>
             <span className="font-display text-3xl leading-none italic">on taking the long way home</span>
           </Link>
-          <Link className="art-card art-card-work col-start-1 col-end-3 row-start-6 row-end-7 -mr-2 mt-3" resetScroll={true} to="/work">
+          <Link className="art-card art-card-work col-start-1 col-end-3 row-start-5 row-end-7 -mr-2 mt-3" resetScroll={true} to="/work">
             <span className="art-label">03 / Work</span>
             <span className="text-sm leading-tight">small systems, bright ideas.</span>
           </Link>
@@ -56,10 +56,10 @@ function Home() {
           <p className="max-w-xs text-sm leading-relaxed text-ink/65">Three ways of looking at the same life: through a screen, a lens, and a half-finished thought.</p>
         </div>
 
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
+        <div className="mt-8 grid gap-5 md:grid-cols-12">
           {homeFeaturedItems.map((item) => {
             const content = <><span className="eyebrow">{item.eyebrow}</span><strong>{item.title}</strong><span>{item.action}</span></>
-            const className = `feature-card feature-${item.variant}`
+            const className = `feature-card feature-${item.variant} ${item.variant === 'note' ? 'md:col-span-6' : 'md:col-span-3'}`
 
             if (item.variant === 'archive') {
               return <Link className={className} key={item.variant} resetScroll={true} to="/archive">{content}</Link>

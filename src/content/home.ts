@@ -1,5 +1,5 @@
 import { archiveFrames, archiveThemes } from './archive'
-import { notes } from './notes'
+import { formatNoteDate, notes } from './notes'
 import { workProjects } from './work'
 
 const featuredArchiveTheme = archiveThemes.find((theme) => theme.id === 'in-between')
@@ -20,7 +20,7 @@ export const homeFeaturedItems = [
   {
     variant: 'note',
     slug: featuredNote.slug,
-    eyebrow: `Note / ${featuredNote.date}`,
+    eyebrow: `Note / ${formatNoteDate(featuredNote.date)}`,
     title: featuredNote.title,
     action: 'Read the note ↗',
   },
